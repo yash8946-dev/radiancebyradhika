@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { Play, X } from "lucide-react";
+import { X } from "lucide-react";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import heroImage from "@/assets/hero-image.jpg";
-import showcaseVideo from "@/assets/showcase-video.mp4";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [showVideo, setShowVideo] = useState(false);
 
   const images = [
     { src: gallery1, alt: "Bridal Makeup Look 1", category: "Bridal" },
@@ -36,33 +34,6 @@ const Gallery = () => {
             A glimpse into my work - from traditional bridal transformations to
             modern glamorous looks.
           </p>
-        </div>
-
-        {/* Video Section */}
-        <div className="mb-12">
-          <div
-            className="relative max-w-2xl mx-auto rounded-2xl overflow-hidden shadow-xl cursor-pointer group"
-            onClick={() => setShowVideo(true)}
-          >
-            <video
-              src={showcaseVideo}
-              className="w-full aspect-video object-cover"
-              muted
-              loop
-              playsInline
-              autoPlay
-            />
-            <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/20 transition-colors flex items-center justify-center">
-              <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Play className="w-8 h-8 text-primary-foreground ml-1" />
-              </div>
-            </div>
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-primary-foreground text-lg font-medium">
-                Watch Transformation Video
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Image Gallery */}
@@ -130,27 +101,6 @@ const Gallery = () => {
         </div>
       )}
 
-      {/* Video Modal */}
-      {showVideo && (
-        <div
-          className="fixed inset-0 bg-foreground/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowVideo(false)}
-        >
-          <button
-            className="absolute top-4 right-4 text-background hover:text-primary transition-colors"
-            onClick={() => setShowVideo(false)}
-          >
-            <X className="w-8 h-8" />
-          </button>
-          <video
-            src={showcaseVideo}
-            controls
-            autoPlay
-            className="max-w-full max-h-[90vh] rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
     </section>
   );
 };
