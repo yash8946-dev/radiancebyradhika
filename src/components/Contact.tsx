@@ -20,29 +20,66 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in your name and phone number.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Google Sheets Web App URL - User needs to set this up
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxxxxxxxxxxx/exec";
+    // Google Sheets Web App URL
+    // To set this up:
+    // 1. Go to your Google Sheet
+    // 2. Click Extensions > Apps Script
+    // 3. Paste the following code and deploy as Web App:
+    /*
+    function doPost(e) {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+      var data = JSON.parse(e.postData.contents);
+      sheet.appendRow([data.Name, data.Phone, data.Email, data.Services, data.Date, data.Message, new Date()]);
+      return ContentService.createTextOutput(JSON.stringify({result: "success"}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    */
+    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+    // Check if URL is configured
+    if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+      toast({
+        title: "Configuration Required",
+        description: "Please set up Google Apps Script URL. Contact the website administrator.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Submit to Google Sheets via Apps Script
-      await fetch(GOOGLE_SCRIPT_URL, {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          Name: formData.name,
-          Phone: formData.phone,
-          Email: formData.email,
+          Name: formData.name.trim(),
+          Phone: formData.phone.trim(),
+          Email: formData.email.trim(),
           Services: formData.services,
           Date: formData.date,
-          Message: formData.message,
+          Message: formData.message.trim(),
         }),
       });
 
+      // With no-cors mode, we can't read the response, but if fetch completes without error, 
+      // we assume success (the request was sent)
       toast({
         title: "Message Sent!",
         description: "Thank you for your inquiry. I'll get back to you within 24 hours.",
@@ -57,7 +94,8 @@ const Contact = () => {
         date: "",
         message: "",
       });
-    } catch {
+    } catch (error) {
+      console.error("Form submission error:", error);
       toast({
         title: "Error",
         description: "Something went wrong. Please try calling or WhatsApp directly.",
