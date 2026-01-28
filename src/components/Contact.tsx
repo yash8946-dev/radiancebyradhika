@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Phone, Mail, MapPin, Send, Instagram, Youtube, Facebook, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,12 @@ import { useToast } from "@/hooks/use-toast";
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Store the Apps Script Web App URL locally so you can configure it without editing code.
+  const GAS_URL_STORAGE_KEY = "radiance_google_apps_script_url";
+  const [gasUrl, setGasUrl] = useState(() => localStorage.getItem(GAS_URL_STORAGE_KEY) ?? "");
+  const [gasUrlInput, setGasUrlInput] = useState(() => localStorage.getItem(GAS_URL_STORAGE_KEY) ?? "");
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -18,14 +24,50 @@ const Contact = () => {
     message: "",
   });
 
+  const canSubmit = useMemo(() => {
+    return !!(formData.name.trim() && formData.phone.trim() && formData.services);
+  }, [formData.name, formData.phone, formData.services]);
+
+  const saveGasUrl = () => {
+    const trimmed = gasUrlInput.trim();
+    if (!trimmed) {
+      toast({
+        title: "Missing URL",
+        description: "Please paste your Google Apps Script Web App URL.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Validate URL format early to prevent runtime fetch errors.
+      // eslint-disable-next-line no-new
+      new URL(trimmed);
+    } catch {
+      toast({
+        title: "Invalid URL",
+        description: "That doesn't look like a valid URL. It should start with https://",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    localStorage.setItem(GAS_URL_STORAGE_KEY, trimmed);
+    setGasUrl(trimmed);
+    toast({
+      title: "Saved",
+      description: "Google Sheets submission URL saved. You can now submit the form.",
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name.trim() || !formData.phone.trim()) {
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.services) {
       toast({
         title: "Missing Information",
-        description: "Please fill in your name and phone number.",
+        description: "Please fill in your name, phone number, and select a service.",
         variant: "destructive",
       });
       return;
@@ -33,49 +75,33 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Google Sheets Web App URL
-    // To set this up:
-    // 1. Go to your Google Sheet
-    // 2. Click Extensions > Apps Script
-    // 3. Paste the following code and deploy as Web App:
-    /*
-    function doPost(e) {
-      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-      var data = JSON.parse(e.postData.contents);
-      sheet.appendRow([data.Name, data.Phone, data.Email, data.Services, data.Date, data.Message, new Date()]);
-      return ContentService.createTextOutput(JSON.stringify({result: "success"}))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-    */
-    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
-
-    // Check if URL is configured
-    if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
-      toast({
-        title: "Configuration Required",
-        description: "Please set up Google Apps Script URL. Contact the website administrator.",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
+      const url = gasUrl.trim();
+      if (!url) {
+        toast({
+          title: "Google Sheets not connected",
+          description: "Please paste your Google Apps Script Web App URL in the box above, then try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // In no-cors mode, only "simple" requests reliably send.
+      // Use URLSearchParams (application/x-www-form-urlencoded) and do not set custom headers.
+      const body = new URLSearchParams({
+        Name: formData.name.trim(),
+        Phone: formData.phone.trim(),
+        Email: formData.email.trim(),
+        Services: formData.services,
+        Date: formData.date,
+        Message: formData.message.trim(),
+      });
+
       // Submit to Google Sheets via Apps Script
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(url, {
         method: "POST",
         mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Name: formData.name.trim(),
-          Phone: formData.phone.trim(),
-          Email: formData.email.trim(),
-          Services: formData.services,
-          Date: formData.date,
-          Message: formData.message.trim(),
-        }),
+        body,
       });
 
       // With no-cors mode, we can't read the response, but if fetch completes without error, 
@@ -156,6 +182,53 @@ const Contact = () => {
             <h3 className="text-xl font-semibold text-foreground mb-6">
               Send a Message
             </h3>
+
+            {/* Admin setup (needed once) */}
+            {!gasUrl && (
+              <div className="mb-6 rounded-xl border border-border/50 bg-muted/30 p-4 space-y-3">
+                <div className="text-sm font-medium text-foreground">Connect to Google Sheets</div>
+                <div className="text-sm text-muted-foreground">
+                  Paste your <span className="font-medium">Google Apps Script Web App</span> URL below to enable form submissions.
+                </div>
+                <Input
+                  placeholder="https://script.google.com/macros/s/......../exec"
+                  value={gasUrlInput}
+                  onChange={(e) => setGasUrlInput(e.target.value)}
+                  className="bg-background"
+                />
+                <div className="flex flex-wrap gap-2">
+                  <Button type="button" variant="secondary" onClick={saveGasUrl}>
+                    Save URL
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      navigator.clipboard
+                        .writeText(
+                          `Google Apps Script (paste into Extensions > Apps Script)\n\nconst SHEET_ID = "1Z3esCPnjepRjcvu3q0RMpEBhHSCtAinX3wcUpe15J3o";\n\nfunction doPost(e) {\n  const ss = SpreadsheetApp.openById(SHEET_ID);\n  const sheet = ss.getSheets()[0];\n  const p = e && e.parameter ? e.parameter : {};\n\n  sheet.appendRow([\n    p.Name || "",\n    p.Phone || "",\n    p.Email || "",\n    p.Services || "",\n    p.Date || "",\n    p.Message || ""\n  ]);\n\n  return ContentService.createTextOutput("ok");\n}\n\nfunction doGet() {\n  return ContentService.createTextOutput("ok");\n}\n\nDeploy: Deploy > New deployment > Web app\nExecute as: Me\nWho has access: Anyone\nCopy the Web app URL and paste it in the website.`,
+                        )
+                        .then(() =>
+                          toast({
+                            title: "Copied",
+                            description: "Setup instructions copied. Paste them into Google Apps Script.",
+                          }),
+                        )
+                        .catch(() =>
+                          toast({
+                            title: "Copy failed",
+                            description: "Please copy the setup steps from chat (I can send them).",
+                            variant: "destructive",
+                          }),
+                        );
+                    }}
+                  >
+                    Copy setup steps
+                  </Button>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Input
@@ -217,7 +290,7 @@ const Contact = () => {
               <Button
                 type="submit"
                 className="w-full gap-2"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !canSubmit}
               >
                 {isSubmitting ? (
                   "Sending..."
