@@ -20,7 +20,7 @@ const Pricing = () => {
     },
     {
       name: "Reception Glam",
-      price: "₹8,000",
+      price: "₹5,000",
       description: "Glamorous look for your reception night",
       icon: Star,
       popular: false,
