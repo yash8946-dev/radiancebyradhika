@@ -129,6 +129,11 @@ const Gallery = () => {
                       watermarkText="© Radiance by Radhika | +91 9009064426"
                       className="w-full h-full object-cover"
                       style={{ objectPosition: image.position }}
+                      width={500}
+                      height={550}
+                      sizes="(max-width: 768px) 90vw, 500px"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -209,6 +214,11 @@ const Gallery = () => {
               alt={images[selectedImageIndex].alt}
               watermarkText="© Radiance by Radhika | +91 9009064426"
               className="w-full h-full object-contain"
+              width={1200}
+              height={900}
+              sizes="(max-width: 1024px) 90vw, 1200px"
+              loading="eager"
+              decoding="async"
             />
           </div>
 

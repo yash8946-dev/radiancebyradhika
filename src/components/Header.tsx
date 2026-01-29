@@ -39,8 +39,8 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg translate-y-0 opacity-100"
-          : "bg-transparent -translate-y-full opacity-0 pointer-events-none"
+          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-border/50 translate-y-0 opacity-100"
+          : "bg-transparent -translate-y-2 opacity-0 pointer-events-none"
       }`}
       role="banner"
     >
@@ -53,15 +53,24 @@ const Header = () => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="flex flex-col"
+            className="flex items-center gap-2"
             aria-label="Radiance by Radhika - Makeup Artist in Burhanpur"
           >
-            <span className="text-2xl font-serif font-bold text-primary">
-              Radiance
-            </span>
-            <span className="text-sm text-muted-foreground -mt-1">
-              by Radhika
-            </span>
+            <img 
+              src="/logo.png" 
+              alt="Radiance by Radhika Logo" 
+              className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto transition-transform duration-300 ease-in-out hover:scale-110 cursor-pointer"
+              width="128"
+              height="128"
+            />
+            {/* <div className="flex flex-col">
+              <span className="text-xl font-serif font-bold text-primary leading-tight">
+                Radiance
+              </span>
+              <span className="text-xs text-muted-foreground -mt-0.5">
+                by Radhika
+              </span>
+            </div> */}
           </a>
 
           {/* Desktop Navigation */}
@@ -94,7 +103,6 @@ const Header = () => {
 
           {/* Mobile: Language Switcher + Menu Button */}
           <div className="md:hidden flex items-center gap-3">
-            <LanguageSwitcher />
             <button
               className="p-2 text-foreground"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -126,7 +134,11 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
-              
+
+              <div className="px-2 flex justify-center">
+                <LanguageSwitcher />
+              </div>
+
               <a href="tel:+919009064426" className="mt-2">
                 <Button variant="default" className="w-full gap-2">
                   <Phone className="w-4 h-4" />

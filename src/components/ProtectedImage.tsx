@@ -6,6 +6,12 @@ interface ProtectedImageProps {
   watermarkText?: string;
   className?: string;
   style?: React.CSSProperties;
+  width?: number;
+  height?: number;
+  sizes?: string;
+  loading?: "lazy" | "eager";
+  decoding?: "async" | "sync" | "auto";
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 export const ProtectedImage: React.FC<ProtectedImageProps> = ({
@@ -14,6 +20,12 @@ export const ProtectedImage: React.FC<ProtectedImageProps> = ({
   watermarkText = "© Radiance by Radhika | +91 9009064426",
   className = "",
   style = {},
+  width,
+  height,
+  sizes,
+  loading = "lazy",
+  decoding = "async",
+  fetchPriority = "auto",
 }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const [displaySrc, setDisplaySrc] = useState(src);
@@ -113,6 +125,11 @@ export const ProtectedImage: React.FC<ProtectedImageProps> = ({
 
     const imgElement = imgRef.current;
     if (imgElement) {
+      if (fetchPriority) {
+        imgElement.setAttribute("fetchpriority", fetchPriority);
+      } else {
+        imgElement.removeAttribute("fetchpriority");
+      }
       imgElement.addEventListener('contextmenu', handleContextMenu);
       document.addEventListener('keydown', handleKeyDown);
     }
@@ -126,7 +143,7 @@ export const ProtectedImage: React.FC<ProtectedImageProps> = ({
         URL.revokeObjectURL(watermarkedBlobUrl);
       }
     };
-  }, [src, watermarkText]);
+  }, [src, watermarkText, fetchPriority]);
 
   return (
     <img
@@ -134,6 +151,11 @@ export const ProtectedImage: React.FC<ProtectedImageProps> = ({
       src={displaySrc}
       alt={alt}
       className={className}
+      width={width}
+      height={height}
+      sizes={sizes}
+      loading={loading}
+      decoding={decoding}
       style={{
         ...style,
         userSelect: 'none',

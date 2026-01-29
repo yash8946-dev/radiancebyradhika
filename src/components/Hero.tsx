@@ -26,7 +26,7 @@ const Hero = () => {
           loop
           playsInline
           preload="metadata"
-          poster="/logo2.png"
+          poster="/logo.png"
           className="w-full h-full object-cover"
           aria-label="Radiance by Radhika makeup artist portfolio showcase video"
         >

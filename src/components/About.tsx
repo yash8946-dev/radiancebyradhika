@@ -29,6 +29,11 @@ const About = () => {
                 watermarkText="© Radiance by Radhika"
                 className="w-full h-[550px] object-cover"
                 style={{ objectPosition: "center 35%" }}
+                width={900}
+                height={550}
+                sizes="(max-width: 1024px) 100vw, 900px"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
             </div>

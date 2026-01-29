@@ -30,11 +30,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="mb-6">
-              <h3 className="text-3xl font-serif font-bold bg-gradient-to-r from-primary to-pink-300 bg-clip-text text-transparent">
-                Radiance
-              </h3>
-              <p className="text-sm text-background/60 italic">by Radhika</p>
+            <div className="mb-6 flex items-center gap-3">
+              <img 
+                src="/logo.png" 
+                alt="Radiance by Radhika Logo" 
+                className="h-40 w-auto brightness-0 invert transition-transform duration-300 ease-in-out hover:scale-110 cursor-pointer"
+                width="160"
+                height="160"
+              />
+              
             </div>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
               {t('footer.brandDescription')}

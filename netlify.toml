@@ -29,15 +29,50 @@
     Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/logo2.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og-image.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
   for = "/sw.js"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
 # Redirect rules
 
+# Force http to https
+[[redirects]]
+  from = "http://radiancebyradhika.lovable.app/*"
+  to = "https://radiancebyradhika.lovable.app/:splat"
+  status = 301
+  force = true
+
 # Force www to non-www (301 redirect for SEO)
 [[redirects]]
   from = "https://www.radiancebyradhika.lovable.app/*"
+  to = "https://radiancebyradhika.lovable.app/:splat"
+  status = 301
+  force = true
+
+# Redirect legacy domain to primary domain
+[[redirects]]
+  from = "https://radiancebyradhika.com/*"
+  to = "https://radiancebyradhika.lovable.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.radiancebyradhika.com/*"
   to = "https://radiancebyradhika.lovable.app/:splat"
   status = 301
   force = true
