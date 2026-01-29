@@ -1,16 +1,19 @@
 import { CheckCircle, Sparkles } from "lucide-react";
-import gallery1 from "@/assets/gallery-1.jpg";
+import { useTranslation } from "react-i18next";
+import { ProtectedImage } from "@/components/ProtectedImage";
+import gallery1 from "@/assets/gallery-1.webp";
 
 const About = () => {
-  const highlights = [
-    "Certified professional training",
-    "300+ satisfied clients",
-    "Strict hygiene standards",
-    "Personalized consultations",
-    "Trial sessions available",
-    "Traditional & modern techniques",
-    "HD makeup expertise",
-    "Complete styling services",
+  const { t } = useTranslation();
+  const highlightKeys = [
+    "clients",
+    "locations",
+    "trials",
+    "consultations",
+    "products",
+    "expertise",
+    "styling",
+    "destination",
   ];
 
   return (
@@ -20,10 +23,12 @@ const About = () => {
           {/* Image Side */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <ProtectedImage
                 src={gallery1}
                 alt="Radhika Nitin Borse - Professional Makeup Artist"
-                className="w-full h-[500px] object-cover object-top"
+                watermarkText="© Radiance by Radhika"
+                className="w-full h-[550px] object-cover"
+                style={{ objectPosition: "center 35%" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
             </div>
@@ -43,32 +48,23 @@ const About = () => {
           </div>
 
           {/* Content Side */}
-          <div>
+          <div itemScope itemType="https://schema.org/Person">
             <span className="text-primary font-medium text-sm uppercase tracking-wider">
-              About Me
+              {t('about.title')}
             </span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mt-2 mb-6">
-              Meet <span className="text-primary">Radhika Nitin Borse</span>
+              {t('about.title')} <span className="text-primary" itemProp="name">Radhika Nitin Borse</span>
             </h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Welcome to Radiance By Radhika! I am a passionate and certified makeup
-              artist dedicated to making every client feel confident and beautiful.
-              With over 2 years of experience and 300+ satisfied clients, I specialize
-              in bridal, party, and editorial makeup.
-            </p>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              My approach combines traditional Indian beauty techniques with modern HD
-              makeup artistry, ensuring you look flawless both in person and on camera.
-              I believe every face tells a unique story, and my job is to enhance your
-              natural beauty while reflecting your personal style.
+            <p className="text-muted-foreground mb-8 leading-relaxed text-lg" itemProp="description">
+              {t('about.description')}
             </p>
 
             {/* Highlights Grid */}
             <div className="grid sm:grid-cols-2 gap-4">
-              {highlights.map((item, index) => (
+              {highlightKeys.map((key, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground/80">{item}</span>
+                  <span className="text-foreground/80">{t(`about.highlights.${key}`)}</span>
                 </div>
               ))}
             </div>

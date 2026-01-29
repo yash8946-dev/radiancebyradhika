@@ -34,18 +34,18 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-20 bg-secondary/30">
+    <section id="testimonials" className="py-20 bg-secondary/30">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary font-medium text-sm uppercase tracking-wider">
-            Testimonials
+            Client Reviews
           </span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mt-2 mb-4">
-            What My <span className="text-primary">Clients Say</span>
+            What My <span className="text-primary">Happy Clients Say</span>
           </h2>
           <p className="text-muted-foreground">
-            Don't just take my word for it - hear from some of my happy clients
+            Hear from 300+ satisfied brides and clients about their experience with Radhika
           </p>
         </div>
 

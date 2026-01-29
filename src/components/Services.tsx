@@ -1,66 +1,49 @@
 import { Heart, Crown, Sparkles, Camera, Users, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 
 const Services = () => {
+  const { t } = useTranslation();
   const services = [
     {
       icon: Crown,
-      title: "Bridal Makeup",
-      description:
-        "Complete bridal transformation including HD makeup, hairstyling, saree draping, and accessory setting for your special day.",
-      features: ["HD Makeup", "Hair Styling", "Saree Draping", "Accessory Setting"],
+      key: 'bridal',
     },
     {
       icon: Heart,
-      title: "Pre-Wedding Events",
-      description:
-        "Look stunning at your engagement, mehendi, sangeet, and haldi ceremonies with customized looks for each occasion.",
-      features: ["Engagement Look", "Mehendi Look", "Sangeet Look", "Haldi Look"],
+      key: 'preWedding',
     },
     {
       icon: Sparkles,
-      title: "Party & Events",
-      description:
-        "Glamorous party makeup for cocktails, receptions, birthdays, and corporate events that make you stand out.",
-      features: ["Cocktail Party", "Reception", "Birthday Events", "Corporate Events"],
+      key: 'party',
     },
     {
       icon: Camera,
-      title: "Editorial & Photoshoot",
-      description:
-        "Professional makeup for fashion shoots, portfolio building, and editorial work with camera-ready finishes.",
-      features: ["Fashion Shoots", "Portfolio Makeup", "Editorial Looks", "Camera Ready"],
+      key: 'editorial',
     },
     {
       icon: Users,
-      title: "Family Package",
-      description:
-        "Makeup services for mother of bride/groom, bridesmaids, and family members with coordinated looks.",
-      features: ["Mother of Bride", "Bridesmaids", "Family Members", "Group Discounts"],
+      key: 'family',
     },
     {
       icon: Star,
-      title: "Trial Session",
-      description:
-        "Pre-wedding trial sessions to finalize your perfect bridal look with adjustments and consultations.",
-      features: ["Personalized Consultation", "Look Finalization", "Product Testing", "Style Discussion"],
+      key: 'trial',
     },
   ];
 
   return (
-    <section id="services" className="py-20 bg-background">
+    <section id="services" className="py-20 bg-background" itemScope itemType="https://schema.org/BeautySalon">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-primary font-medium text-sm uppercase tracking-wider">
-            What I Offer
+            Services
           </span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mt-2 mb-4">
-            My <span className="text-primary">Services</span>
+            {t('services.title')}
           </h2>
-          <p className="text-muted-foreground">
-            From bridal transformations to editorial shoots, I offer comprehensive
-            beauty services tailored to make you look and feel your absolute best.
+          <p className="text-muted-foreground" itemProp="description">
+            {t('services.subtitle')}
           </p>
         </div>
 
@@ -78,18 +61,18 @@ const Services = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {service.title}
+                <h3 className="text-xl font-semibold text-foreground mb-3" itemProp="name">
+                  {t(`services.${service.key}.title`)}
                 </h3>
 
                 {/* Description */}
                 <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                  {service.description}
+                  {t(`services.${service.key}.description`)}
                 </p>
 
                 {/* Features */}
                 <div className="flex flex-wrap gap-2">
-                  {service.features.map((feature, idx) => (
+                  {(t(`services.${service.key}.features`, { returnObjects: true }) as string[]).map((feature: string, idx: number) => (
                     <span
                       key={idx}
                       className="text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full"

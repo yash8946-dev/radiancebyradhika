@@ -5,6 +5,85 @@
   text-align: center;
 }
 
+/* Content Protection */
+.protected-content {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+  position: relative;
+}
+
+/* Add invisible watermark overlay */
+.protected-content::before {
+  content: "© Radiance by Radhika";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* Protect images from being dragged */
+img.protected,
+canvas.protected {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  position: relative;
+}
+
+/* Watermark overlay for images */
+.watermarked-image {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* Multiple watermark overlays */
+.watermarked-image::after {
+  content: "© Radiance by Radhika - DO NOT COPY";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+  transform: rotate(-30deg);
+  z-index: 10;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.watermark {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  pointer-events: none;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  z-index: 20;
+  letter-spacing: 1px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

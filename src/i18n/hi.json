@@ -1,0 +1,189 @@
+{
+  "nav": {
+    "home": "होम",
+    "about": "मेरे बारे में",
+    "services": "Services",
+    "pricing": "Pricing",
+    "gallery": "Gallery",
+    "testimonials": "Reviews",
+    "contact": "Contact करें"
+  },
+  "hero": {
+    "title": "Bridal Makeup Artist",
+    "location": "बुरहानपुर में",
+    "subtitle": "Bridal & Party Makeup | 300+ Happy Clients | Destination Weddings के लिए Available",
+    "bookBtn": "Consultation बुक करें",
+    "pricingBtn": "Pricing देखें",
+    "badge": "बुरहानपुर की Trusted Makeup Artist | 300+ Happy Brides"
+  },
+  "about": {
+    "title": "मेरे बारे में",
+    "name": "Radhika Nitin Borse",
+    "description": "Professional makeup artist जो Bridal, Party और Editorial looks में expert हूं। 2+ years experience के साथ 300+ brides को transform किया है बुरहानपुर, खंडवा और इंदौर में।",
+    "highlights": {
+      "clients": "300+ Happy Brides Transformed",
+      "locations": "बुरहानपुर, खंडवा और इंदौर में Available",
+      "trials": "Brides के लिए Free Makeup Trial",
+      "consultations": "Personal 1-on-1 Consultations दिये जाते हैं",
+      "products": "Premium International Products का उपयोग",
+      "expertise": "Traditional और HD Makeup दोनों में Expert",
+      "styling": "Complete Hair Styling और Saree Draping शामिल",
+      "destination": "Destination Weddings के लिए Available"
+    },
+    "excellence": "Excellence की परंपरा"
+  },
+  "services": {
+    "title": "Professional Makeup Services",
+    "subtitle": "Bridal, Party और Editorial Makeup Services जो आपको बिल्कुल stunning बनाएंगी!",
+    "bridal": {
+      "title": "Bridal Makeup",
+      "description": "Complete bridal transformation with HD makeup, hair styling, draping & accessories.",
+      "features": ["HD Makeup", "Hair Styling", "Saree Draping", "Accessory Setting"]
+    },
+    "preWedding": {
+      "title": "Pre-Wedding Events",
+      "description": "Stunning looks for Engagement, Mehendi, Sangeet & Haldi ceremonies.",
+      "features": ["Engagement Look", "Mehendi Look", "Sangeet Look", "Haldi Look"]
+    },
+    "party": {
+      "title": "Party & Events",
+      "description": "Glamorous makeup for cocktails, receptions, birthdays & corporate events.",
+      "features": ["Cocktail Party", "Reception", "Birthday Events", "Corporate Events"]
+    },
+    "editorial": {
+      "title": "Editorial & Photoshoot",
+      "description": "Professional camera-ready makeup for fashion shoots और portfolio building.",
+      "features": ["Fashion Shoots", "Portfolio Makeup", "Editorial Looks", "Camera Ready"]
+    },
+    "family": {
+      "title": "Family Package",
+      "description": "Coordinated makeup for mother of bride/groom, bridesmaids & family members.",
+      "features": ["Mother of Bride", "Bridesmaids", "Family Members", "Group Discounts"]
+    },
+    "trial": {
+      "title": "Trial Session",
+      "description": "Pre-wedding trials to finalize आपका perfect bridal look with expert consultation.",
+      "features": ["Personalized Consultation", "Look Finalization", "Product Testing", "Style Discussion"]
+    }
+  },
+  "pricing": {
+    "title": "Makeup Service Packages",
+    "subtitle": "आपकी सभी Makeup जरूरतों के लिए सही package। सभी में premium products और personal consultation शामिल है।",
+    "packages": {
+      "trial": {
+        "name": "Makeup Trial",
+        "price": "₹2,999",
+        "duration": "2 घंटे",
+        "includes": "Complete Consultation, Trial Look, Product Testing, Color Matching"
+      },
+      "engagement": {
+        "name": "Engagement Look",
+        "price": "₹5,000",
+        "duration": "3 घंटे",
+        "includes": "HD Makeup Application, Hair Styling, Eye Makeup, False Lashes, Touch-up Kit"
+      },
+      "reception": {
+        "name": "Reception Glam",
+        "price": "₹5,000",
+        "duration": "3 घंटे",
+        "includes": "Premium HD Makeup, Advanced Hair Styling, Contouring & Highlighting, Premium Lashes, Draping Assistance, Touch-up Kit"
+      },
+      "bridal": {
+        "name": "Bridal Package",
+        "price": "₹15,000",
+        "duration": "4-5 घंटे",
+        "includes": "Luxury HD Bridal Makeup, Bridal Hair Styling, Full Face Contouring, Premium Lash Extensions, Saree Draping, Accessory Setting, Touch-up Kit, 2 Hours On-Call Support"
+      },
+      "fullWedding": {
+        "name": "Full Wedding Package",
+        "price": "₹35,000",
+        "duration": "Multi-Day Coverage",
+        "includes": "4 Different Looks, Full-Day Coverage, Premium Products, Complete Styling, Draping for All Events, Personal Touch-up Kit, Priority Booking Support"
+      }
+    },
+    "additionalServices": {
+      "heading": "Additional Services",
+      "services": [
+        { "name": "Party Makeup", "price": "₹2,499" },
+        { "name": "Mehendi/Haldi Look", "price": "₹2,499" },
+        { "name": "Airbrush Makeup", "price": "+₹2,000" },
+        { "name": "Saree Draping", "price": "₹500" },
+        { "name": "Hair Styling", "price": "₹500" },
+        { "name": "Trial Session", "price": "₹999" },
+        { "name": "Destination Travel", "price": "Distance-based" }
+      ],
+      "note": "* कीमतें specific requirements के अनुसार भिन्न हो सकती हैं। Custom quotes के लिए contact करें।"
+    },
+    "note": "कीमतें location और complexity के आधार पर भिन्न हो सकती हैं। Customized quotes के लिए call करें। Group discounts available हैं।"
+  },
+  "gallery": {
+    "title": "Gallery & Portfolio",
+    "subtitle": "Professional makeup portfolio देखें - Bridal, Party और Special Occasion looks। बुरहानपुर, Madhya Pradesh में Radhika के काम से beautiful transformations।",
+    "clickToView": "View करने के लिए Click करें",
+    "instagramText": "More makeup inspiration के लिए Follow करें",
+    "instagramHandle": "@radianceby.radhika"
+  },
+  "brands": {
+    "label": "Quality Products",
+    "title": "Brands जो मैं Use करती हूं",
+    "description": "मैं आपके special day के लिए flawless, long-lasting results सुनिश्चित करने के लिए केवल best quality products का use करती हूं।",
+    "makeupHeading": "Makeup Brands",
+    "hairHeading": "Hair Styling Tools & Products",
+    "note": "सभी products को carefully select किया जाता है quality, durability और performance के लिए ताकि आपको best results मिलें।"
+  },
+  "testimonials": {
+    "title": "Client Reviews",
+    "subtitle": "मेरी Happy Clients क्या कहती हैं",
+    "moreReviews": "Instagram पर More Reviews देखें"
+  },
+  "contact": {
+    "title": "अपना Consultation बुक करें",
+    "subtitle": "आपका Makeup Consultation Book करें",
+    "formTitle": "चलिए आपको Beautiful बनाते हैं!",
+    "name": "पूरा नाम",
+    "email": "ईमेल",
+    "phone": "फोन नंबर",
+    "eventDate": "Event की Date",
+    "eventType": "Event का Type",
+    "message": "Message (Optional)",
+    "submit": "अभी Book करें",
+    "selectEventType": "Event Type चुनें",
+    "bridal": "Bridal",
+    "party": "Party",
+    "engagement": "Engagement",
+    "other": "अन्य",
+    "info": {
+      "title": "संपर्क में रहें",
+      "description": "अपनी Makeup appointment book करने के लिए ready हैं? नीचे दिया गया form भरें और मैं 24 घंटे में reply दूंगी!",
+      "phone": "फोन",
+      "email": "ईमेल",
+      "hours": "Available Hours"
+    }
+  },
+  "footer": {
+    "brandDescription": "बुरहानपुर की Trusted Makeup Artist जो stunning Bridal और Party looks बनाती हूं। बुरहानपुर, खंडवा और इंदौर में available हूं।",
+    "quickLinks": "Quick Links",
+    "links": {
+      "home": "होम",
+      "about": "About",
+      "services": "Services",
+      "pricing": "Pricing",
+      "gallery": "Gallery",
+      "contact": "Contact"
+    },
+    "servicesHeading": "Services",
+    "servicesList": [
+      "Bridal Makeup",
+      "Engagement Look",
+      "Reception Glam",
+      "Party Makeup",
+      "Photoshoot Makeup",
+      "Hair Styling"
+    ],
+    "contactHeading": "संपर्क में रहें",
+    "phone": "+91 9009064426",
+    "email": "radhikaborse1819@gmail.com",
+    "location": "बुरहानपुर, Madhya Pradesh, India",
+    "copyright": "© 2024 Radiance by Radhika. सभी Rights Reserved।"
+  }
+}

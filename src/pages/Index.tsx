@@ -8,12 +8,15 @@ import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { useSEO } from "@/hooks/use-seo";
 
 const Index = () => {
+  useSEO();
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Services />

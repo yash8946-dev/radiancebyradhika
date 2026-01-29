@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Skip to Content Link - Accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: hsl(350 65% 45%);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -9,65 +27,65 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Elegant Rose Gold & Cream Theme for Makeup Artist */
-    --background: 30 30% 98%;
-    --foreground: 350 15% 15%;
+    --background: 0 0% 100%;
+    --foreground: 350 15% 10%;
 
-    --card: 30 20% 97%;
-    --card-foreground: 350 15% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 350 15% 10%;
 
-    --popover: 30 30% 98%;
-    --popover-foreground: 350 15% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 350 15% 10%;
 
     /* Rose Gold Primary */
-    --primary: 350 45% 50%;
-    --primary-foreground: 30 30% 98%;
+    --primary: 350 65% 45%;
+    --primary-foreground: 0 0% 100%;
 
     /* Soft Blush Secondary */
-    --secondary: 350 30% 92%;
-    --secondary-foreground: 350 25% 25%;
+    --secondary: 350 15% 95%;
+    --secondary-foreground: 350 25% 20%;
 
     /* Warm Cream Muted */
-    --muted: 30 20% 94%;
-    --muted-foreground: 350 10% 45%;
+    --muted: 350 10% 96%;
+    --muted-foreground: 350 10% 35%;
 
     /* Gold Accent */
     --accent: 38 70% 50%;
-    --accent-foreground: 30 30% 98%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 30 30% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 350 20% 88%;
-    --input: 350 20% 88%;
-    --ring: 350 45% 50%;
+    --border: 350 10% 85%;
+    --input: 350 10% 90%;
+    --ring: 350 65% 45%;
 
     --radius: 0.75rem;
 
     /* Custom design tokens */
     --gold: 38 70% 50%;
     --gold-light: 38 60% 70%;
-    --rose: 350 45% 50%;
+    --rose: 350 65% 45%;
     --rose-light: 350 40% 85%;
-    --cream: 30 30% 98%;
+    --cream: 0 0% 100%;
     --cream-dark: 30 20% 90%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(350 45% 50% / 0.9), hsl(38 70% 50% / 0.8));
-    --gradient-card: linear-gradient(180deg, hsl(30 30% 98%), hsl(350 30% 96%));
+    --gradient-hero: linear-gradient(135deg, hsl(350 65% 45% / 0.9), hsl(38 70% 50% / 0.8));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(350 10% 98%));
     --gradient-gold: linear-gradient(135deg, hsl(38 70% 50%), hsl(38 60% 60%));
 
     /* Shadows */
     --shadow-soft: 0 4px 20px hsl(350 45% 50% / 0.1);
     --shadow-glow: 0 0 30px hsl(38 70% 50% / 0.3);
 
-    --sidebar-background: 30 30% 98%;
-    --sidebar-foreground: 350 15% 25%;
-    --sidebar-primary: 350 45% 50%;
-    --sidebar-primary-foreground: 30 30% 98%;
-    --sidebar-accent: 350 30% 92%;
-    --sidebar-accent-foreground: 350 25% 25%;
-    --sidebar-border: 350 20% 88%;
-    --sidebar-ring: 350 45% 50%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 350 15% 20%;
+    --sidebar-primary: 350 65% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 350 15% 95%;
+    --sidebar-accent-foreground: 350 25% 20%;
+    --sidebar-border: 350 10% 85%;
+    --sidebar-ring: 350 65% 45%;
   }
 
   .dark {

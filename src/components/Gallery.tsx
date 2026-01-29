@@ -1,68 +1,156 @@
-import { useState } from "react";
-import { X } from "lucide-react";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-import heroImage from "@/assets/hero-image.jpg";
+import { useState, useRef, useEffect } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ProtectedImage } from "@/components/ProtectedImage";
+import gallery1 from "@/assets/gallery-1.webp";
+import gallery2 from "@/assets/gallery-2.webp";
+import gallery3 from "@/assets/gallery-3.webp";
+import gallery4 from "@/assets/gallery-4.webp";
+import gallery5 from "@/assets/gallery-5.webp";
+import heroImage from "@/assets/hero-image.webp";
 
 const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { t } = useTranslation();
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const images = [
-    { src: gallery1, alt: "Bridal Makeup Look 1", category: "Bridal" },
-    { src: gallery2, alt: "Traditional Saree Look", category: "Traditional" },
-    { src: gallery3, alt: "South Indian Bridal", category: "Bridal" },
-    { src: gallery4, alt: "Wedding Day Look", category: "Wedding" },
-    { src: gallery5, alt: "Party Makeup", category: "Party" },
-    { src: heroImage, alt: "Evening Glam Look", category: "Editorial" },
+    { src: gallery1, alt: "Professional bridal makeup look with traditional jewelry by Radiance by Radhika in Burhanpur", category: "Bridal", position: "center top" },
+    { src: gallery2, alt: "Traditional saree makeup look with elegant styling by makeup artist Radhika in Burhanpur", category: "Traditional", position: "center top" },
+    { src: gallery3, alt: "South Indian bridal makeup with classic gold jewelry and red saree in Burhanpur", category: "Bridal", position: "center top" },
+    { src: gallery4, alt: "Wedding day bridal makeup and hair styling by professional makeup artist Radhika in Madhya Pradesh", category: "Wedding", position: "center top" },
+    { src: gallery5, alt: "Glamorous party makeup look for special occasions by Radiance by Radhika in Burhanpur", category: "Party", position: "center top" },
+    { src: heroImage, alt: "Evening glam editorial makeup photoshoot by professional makeup artist in Madhya Pradesh", category: "Editorial", position: "center 100%" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      
+      const container = containerRef.current;
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate scroll progress based on container position
+      const scrollStart = rect.top - windowHeight;
+      const scrollEnd = rect.bottom;
+      const scrollRange = scrollEnd - scrollStart;
+      const scrolled = -scrollStart;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+      
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const goToPrevious = () => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex - 1 + images.length) % images.length);
+    }
+  };
+
+  const goToNext = () => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex + 1) % images.length);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") goToPrevious();
+    if (e.key === "ArrowRight") goToNext();
+    if (e.key === "Escape") setSelectedImageIndex(null);
+  };
+
+  const cardWidth = 500;
+  const cardGap = 30;
+  const scrollStep = cardWidth + cardGap;
+  const maxOffset = Math.max(0, scrollStep * (images.length - 1));
+  const horizontalOffset = Math.min(scrollProgress * maxOffset, maxOffset);
+  
+  // Calculate which image is in focus based on scroll progress
+  const focusIndex = scrollProgress * (images.length - 1);
+  const activeFocusIndex = Math.round(focusIndex);
+
   return (
-    <section id="gallery" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+    <section id="gallery" className="bg-background">
+      {/* Section Header */}
+      <div className="container mx-auto px-4 pt-20 pb-10">
+        <div className="text-center max-w-2xl mx-auto">
           <span className="text-primary font-medium text-sm uppercase tracking-wider">
             Portfolio
           </span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mt-2 mb-4">
-            My <span className="text-primary">Gallery</span>
+            {t('gallery.title')}
           </h2>
           <p className="text-muted-foreground">
-            A glimpse into my work - from traditional bridal transformations to
-            modern glamorous looks.
+            {t('gallery.subtitle')}
           </p>
         </div>
+      </div>
 
-        {/* Image Gallery */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="relative group cursor-pointer overflow-hidden rounded-xl"
-              onClick={() => setSelectedImage(image.src)}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full aspect-[3/4] object-cover object-top transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4">
-                  <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded-full">
-                    {image.category}
-                  </span>
-                  <p className="text-primary-foreground font-medium mt-2">{image.alt}</p>
-                </div>
+      {/* Scroll-triggered Horizontal Gallery */}
+      <div 
+        ref={containerRef}
+        className="relative"
+        style={{ height: `${(images.length - 1) * 100}vh` }}
+      >
+        <div className="sticky top-0 h-screen flex items-center overflow-hidden bg-background">
+          <div className="w-full h-full flex items-center">
+            <div className="relative w-full h-[600px] flex items-center">
+              <div 
+                className="flex gap-8"
+                style={{ 
+                  transform: `translateX(calc(min(0px, 50vw - 250px - ${horizontalOffset}px)))`,
+                  willChange: 'transform'
+                }}
+              >
+                {images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-[500px] h-[550px] relative group cursor-pointer overflow-hidden rounded-2xl shadow-2xl transition-all duration-500"
+                    onClick={() => setSelectedImageIndex(index)}
+                    style={{
+                      opacity: Math.abs(index - activeFocusIndex) > 1.5 ? 0.4 : Math.max(0.5, 1 - Math.abs(index - activeFocusIndex) * 0.25),
+                      transform: `scale(${index === activeFocusIndex ? 1.1 : Math.max(0.85, 1 - Math.abs(index - activeFocusIndex) * 0.08)})`,
+                      filter: Math.abs(index - activeFocusIndex) > 1.5 ? 'blur(2px)' : 'blur(0px)',
+                    }}
+                  >
+                    <ProtectedImage
+                      src={image.src}
+                      alt={image.alt}
+                      watermarkText="© Radiance by Radhika | +91 9009064426"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: image.position }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <span className="text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-full inline-block font-medium shadow-lg">
+                        {image.category}
+                      </span>
+                      <p className="text-white font-semibold mt-3 text-base drop-shadow-lg">
+                        {image.alt}
+                      </p>
+                    </div>
+                    {/* Click indicator */}
+                    <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm text-foreground text-xs px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                      Click to view
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
+      </div>
 
-        {/* Instagram Link */}
-        <div className="text-center mt-12">
+      {/* Instagram Link */}
+      <div className="container mx-auto px-4 pb-20">
+        <div className="text-center">
           <p className="text-muted-foreground mb-4">
             Follow for more makeup inspiration
           </p>
@@ -80,27 +168,78 @@ const Gallery = () => {
         </div>
       </div>
 
-      {/* Lightbox for Images */}
-      {selectedImage && (
+      {/* Fullscreen Lightbox with Navigation */}
+      {selectedImageIndex !== null && (
         <div
-          className="fixed inset-0 bg-foreground/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 bg-foreground/95 z-50 flex items-center justify-center p-4 focus:outline-none"
+          onClick={() => setSelectedImageIndex(null)}
+          onKeyDown={handleKeyPress}
+          tabIndex={0}
+          role="dialog"
         >
+          {/* Close Button */}
           <button
-            className="absolute top-4 right-4 text-background hover:text-primary transition-colors"
-            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 text-background hover:text-primary transition-colors z-10"
+            onClick={() => setSelectedImageIndex(null)}
+            aria-label="Close"
           >
             <X className="w-8 h-8" />
           </button>
-          <img
-            src={selectedImage}
-            alt="Gallery preview"
-            className="max-w-full max-h-[90vh] object-contain rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          />
+
+          {/* Left Navigation */}
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-background hover:text-primary transition-colors z-10 p-2 hover:bg-foreground/20 rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrevious();
+            }}
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+
+          {/* Image Container with Smooth Transition */}
+          <div className="relative w-full max-w-4xl h-[80vh] flex items-center justify-center overflow-hidden rounded-lg">
+            <ProtectedImage
+              key={selectedImageIndex}
+              src={images[selectedImageIndex].src}
+              alt={images[selectedImageIndex].alt}
+              watermarkText="© Radiance by Radhika | +91 9009064426"
+              className="w-full h-full object-contain"
+            />
+          </div>
+
+          {/* Right Navigation */}
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-background hover:text-primary transition-colors z-10 p-2 hover:bg-foreground/20 rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }}
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-8 h-8" />
+          </button>
+
+          {/* Image Counter */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-background/80 text-sm font-medium">
+            {selectedImageIndex + 1} / {images.length}
+          </div>
+
+          {/* Image Info */}
+          <div className="absolute bottom-4 left-4 text-background/80 text-sm">
+            <span className="bg-primary/80 text-background px-3 py-1 rounded-full inline-block mb-2">
+              {images[selectedImageIndex].category}
+            </span>
+            <p className="text-background/90">{images[selectedImageIndex].alt}</p>
+          </div>
+
+          {/* Keyboard Instructions */}
+          <div className="absolute top-4 left-4 text-background/60 text-xs">
+            Use arrow keys to navigate • ESC to close
+          </div>
         </div>
       )}
-
     </section>
   );
 };
