@@ -19,14 +19,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Optimize build output
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    // Use esbuild (default) for minification - faster and no extra dependency
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -35,7 +29,6 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
-    // Optimize chunk size
     chunkSizeWarningLimit: 1000,
   },
 }));
