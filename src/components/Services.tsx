@@ -45,6 +45,9 @@ const Services = () => {
           <p className="text-muted-foreground" itemProp="description">
             {t('services.subtitle')}
           </p>
+          <p className="text-muted-foreground mt-3">
+            <a href="#about" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#about')?.scrollIntoView({behavior:'smooth'});}}>Learn more about Radhika</a> and her expertise, or check our <a href="#pricing" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#pricing')?.scrollIntoView({behavior:'smooth'});}}>pricing plans</a> for detailed packages.
+          </p>
         </div>
 
         {/* Services Grid */}

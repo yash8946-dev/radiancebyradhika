@@ -95,12 +95,33 @@ const Footer = () => {
           <div>
             <h4 className="text-base font-semibold mb-5 text-background uppercase tracking-wider">{t('footer.servicesHeading')}</h4>
             <ul className="space-y-2.5">
-              {services.map((service) => (
-                <li key={service} className="text-background/70 text-sm flex items-start">
-                  <span className="mr-2 text-primary">•</span>
-                  <span>{service}</span>
+              {services.map((service, idx) => (
+                <li key={service}>
+                  <a
+                    href="#services"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("#services");
+                    }}
+                    className="text-background/70 hover:text-primary hover:translate-x-1 transition-all text-sm inline-flex items-start"
+                  >
+                    <span className="mr-2 text-primary">•</span>
+                    <span>{service}</span>
+                  </a>
                 </li>
               ))}
+              <li>
+                <a
+                  href="#pricing"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("#pricing");
+                  }}
+                  className="text-primary hover:underline text-sm font-medium inline-block mt-2"
+                >
+                  View All Pricing →
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -33,7 +33,16 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Redirect rules (if needed)
+# Redirect rules
+
+# Force www to non-www (301 redirect for SEO)
+[[redirects]]
+  from = "https://www.radiancebyradhika.lovable.app/*"
+  to = "https://radiancebyradhika.lovable.app/:splat"
+  status = 301
+  force = true
+
+# SPA fallback - must come last
 [[redirects]]
   from = "/*"
   to = "/index.html"

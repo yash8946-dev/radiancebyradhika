@@ -59,6 +59,11 @@ const About = () => {
               {t('about.description')}
             </p>
 
+            {/* Internal Links for SEO */}
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Explore our comprehensive <a href="#services" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});}}>makeup services</a> including bridal, party, and editorial looks. Check out our competitive <a href="#pricing" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#pricing')?.scrollIntoView({behavior:'smooth'});}}>pricing packages</a> and view our <a href="#gallery" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#gallery')?.scrollIntoView({behavior:'smooth'});}}>stunning portfolio</a>. Ready to book? <a href="#contact" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'});}}>Contact us today</a>!
+            </p>
+
             {/* Highlights Grid */}
             <div className="grid sm:grid-cols-2 gap-4">
               {highlightKeys.map((key, index) => (

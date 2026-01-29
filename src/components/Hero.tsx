@@ -62,11 +62,19 @@ const Hero = () => {
 
           {/* Subheading */}
           <p
-            className="text-lg md:text-xl text-muted-foreground mb-8 animate-fade-in-up"
+            className="text-lg md:text-xl text-muted-foreground mb-4 animate-fade-in-up"
             style={{ animationDelay: "0.4s" }}
             itemProp="description"
           >
             {t('hero.subtitle')}
+          </p>
+          
+          {/* Internal Links for SEO */}
+          <p
+            className="text-base text-muted-foreground mb-8 animate-fade-in-up"
+            style={{ animationDelay: "0.6s" }}
+          >
+            Explore our <a href="#services" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); scrollToSection('#services');}}>professional services</a>, view our <a href="#gallery" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); scrollToSection('#gallery');}}>stunning portfolio</a>, and read <a href="#testimonials" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); scrollToSection('#testimonials');}}>client reviews</a>.
           </p>
 
           {/* Stats */}

@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://radiancebyradhika.com/sitemap.xml
+Sitemap: https://radiancebyradhika.lovable.app/sitemap.xml
 
 # Crawl delay for good bot behavior (optional)
 Crawl-delay: 1

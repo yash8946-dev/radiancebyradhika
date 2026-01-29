@@ -55,6 +55,9 @@ const Pricing = () => {
           <p className="text-muted-foreground" itemProp="description">
             {t('pricing.subtitle')}
           </p>
+          <p className="text-muted-foreground mt-3">
+            View our <a href="#services" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});}}>complete service offerings</a> and <a href="#gallery" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#gallery')?.scrollIntoView({behavior:'smooth'});}}>portfolio gallery</a> to see our work.
+          </p>
         </div>
 
         {/* Pricing Cards */}

@@ -172,6 +172,9 @@ Message: ${formData.message.trim() || 'No additional message'}`;
             Ready to look absolutely gorgeous? Fill out the form below or reach out directly.
             Radhika responds to all inquiries within 24 hours. Available for bridal, party, and editorial makeup in Burhanpur, Khandwa, and Madhya Pradesh.
           </p>
+          <p className="text-muted-foreground mt-3">
+            Review our <a href="#services" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});}}>makeup services</a>, view <a href="#pricing" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#pricing')?.scrollIntoView({behavior:'smooth'});}}>package pricing</a>, or check <a href="#testimonials" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#testimonials')?.scrollIntoView({behavior:'smooth'});}}>client testimonials</a> before booking.
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">

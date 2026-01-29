@@ -90,6 +90,9 @@ const Gallery = () => {
           <p className="text-muted-foreground">
             {t('gallery.subtitle')}
           </p>
+          <p className="text-muted-foreground mt-3">
+            Interested in these looks? <a href="#services" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});}}>Explore our services</a>, check <a href="#pricing" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#pricing')?.scrollIntoView({behavior:'smooth'});}}>pricing details</a>, or <a href="#contact" className="text-primary hover:underline font-medium" onClick={(e) => {e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'});}}>book your session</a> today!
+          </p>
         </div>
       </div>
 
